@@ -1,90 +1,146 @@
-//console.log("Hello World");
-
-
 let humanScore=0;
 let computerScore=0;
-let round=0;
-confirm('Start game?');
+let round=1;
+
+const choiceText=document.querySelector('.round');
+
+const roundEnd=document.querySelector('.roundEnd');
+const results=document.querySelector('.results');
+
+const div=document.createElement('div');            //round message win or lose
+const divVS=document.createElement('div');          //shows choices
+divVS.classList.add('vs');
+
+const divScore=document.createElement('div');
+divScore.classList.add('divScore');
+const score=document.createElement('div');
+score.classList.add('score');
+const divScoreHuman=document.createElement('div');
+divScoreHuman.classList.add('divScoreHuman');
+const scoreH=document.createElement('p'); 
+const scoreH2=document.createElement('p'); 
+const divScoreComputer=document.createElement('div');
+divScoreComputer.classList.add('divScoreComputer');
+const scoreC=document.createElement('p'); 
+const scoreC2=document.createElement('p'); 
+
+const divEnd=document.createElement('div');
+divEnd.classList.add('divEnd');
+const end=document.createElement('p');
+const end2=document.createElement('p');
+const endScore=document.createElement('p');
+end.classList.add('end');
+end2.classList.add('end2');
+endScore.classList.add('endScore');
+
+const restart=document.createElement('button');
+restart.textContent='Play Again';
+
 playGame();
 
 function playGame(){
-    for (round=1; round<6; round++){
-        game();
-    }
-    if(round==6 && computerScore>humanScore){
-        alert('GAME OVER! \n\n\nComputer Score: '+computerScore+'\nYour Score: '+humanScore+'\n\n\nYOU LOSE \nBETTER LUCK NEXT TIME  ¯\_(ツ)_/¯');
-    }else if(computerScore<humanScore){
-        alert('GAME OVER! \n\n\nComputer Score: '+computerScore+'\nYour Score: '+humanScore+'\n\n\nYOU WIN!! \nCONGRATS! ദ്ദി(｡•̀ ,<)~✩‧₊');
-    }else {
-        alert('GAME OVER! \n\n\nComputer Score: '+computerScore+'\nYour Score: '+humanScore+"\n\n\nIT'S A TIE! \nNOT BAD AT ALL! (◕‿◕✿)");
-    }
-}    
+    const input=document.querySelector('.options');
+    input.addEventListener('click',(event)=>{
+        if(round>5){
+            if(computerScore>humanScore){
+                end.textContent='YOU LOSE:(';
+                end2.textContent='BETTER LUCK NEXT TIME  ¯\_(ツ)_/¯';
 
-function game(){
-    function getComputerChoice(){
-        computer = Math.floor(Math.random()*3);
+            }else if(computerScore<humanScore){
+                end.textContent='YOU WIN!!';
+                end2.textContent='CONGRATS! ദ്ദി(｡•̀ ,<)~✩‧₊';
 
-        cInput = (computer==0)?'ROCK' : (computer==1)?'PAPER' : 'SCISSORS';
-        return {computer, cInput};
-    }
+            }else {
+                end.textContent="IT'S A TIE!";
+                end2.textContent='NOT BAD AT ALL! (◕‿◕✿)';
+               
+            }
+            endScore.textContent='You:  '+humanScore+ '  |  '+'CPU:  '+computerScore;
 
-    function getHumanChoice(flag){
-        //This flag alerts the user if they input other value than the words: ROCK, PAPER or SCISSORS
-        if (flag==1){
-            alert('PLS input only ROCK, PAPER or SCISSORS!!!')
-            flag=0;
+            restart.onclick=()=>window.location.reload();
+
+            divEnd.appendChild(endScore);
+            divEnd.appendChild(end);
+            divEnd.appendChild(end2);
+            divEnd.appendChild(restart);
+
+            results.appendChild(divEnd);
+
+
+
+            
+            return;
+         }
+        let human;        
+        let target = event.target;
+
+        switch(target.id){
+            case 'rock':
+                human=0;
+            break;
+            case 'paper':
+                human=1;
+            break;
+            case 'scissors':
+                human=2;
+            break;
         }
+        playRound(human);
+        round++;
 
-        let x = prompt('ROUND '+round+'\n\nRock, Paper or Scissors','');
+        });
+}
+    
+function playRound(human){
 
-        //case-sensitive: to unify the variation of inputs
-        let y = x.toUpperCase();
-        hInput = y;
-        //converts the string to numbers for easier comparison
-        let z = (y=='ROCK')?0 : (y=='PAPER')?1 :  (y=='SCISSORS')?2 : 3 ;
+    const computerChoice = parseInt(Math.floor(Math.random()*3));
+    const humanChoice = parseInt(human);
+    const computerInput = (computerChoice==0)?'Rock' : (computerChoice==1)?'Paper' : 'Scissors';
+    const humanInput = (humanChoice==0)?'Rock' : (humanChoice==1)?'Paper' : 'Scissors';
+    
+    divVS.textContent=humanInput+ '  VS  '+computerInput;
+    results.appendChild(divVS);
+    choiceText.textContent='Round '+round;
+    choiceText.style='font-weight:bold;';
+    
+    if (computerChoice==2 && humanChoice == 0){
+        div.textContent= 'YOU WIN!!!';
+        humanScore = humanScore+1;
 
-        //checks that the user input is a valid option, if not, the function is repeated
-        human = (z==0)?z : (z==1)?z : (z==2)?z : getHumanChoice(1);
-        return {human, hInput};
+    }else if (computerChoice==0 && humanChoice == 2){
+        div.textContent= 'YOU LOSE :(';
+        computerScore = computerScore+1;      
+
+    }else if (computerChoice>humanChoice){
+        div.textContent= 'YOU LOSE :(';
+        computerScore = computerScore+1;
+
+    }else if (humanChoice>computerChoice){
+        div.textContent= 'YOU WIN!!!';
+        humanScore = humanScore+1;
+
+    }else{
+        div.textContent= "IT'S A TIE!";
     }
+    results.appendChild(div);
 
-    const computerChoice = parseInt(getComputerChoice().computer);
-    const humanChoice = parseInt(getHumanChoice().human);
-    const computerInput = cInput;
-    const humanInput = hInput;
-    
-    console.log('ROUND '+round+'\n\n');
-    console.log('Computer: ' +cInput);
-    console.log('You: ' +hInput+'\n\n');
+    score.textContent='SCORE';
+    scoreH.textContent='YOU';
+    scoreH2.textContent=humanScore;
+    scoreC.textContent='CPU';
+    scoreC2.textContent=computerScore;
+        
+    divScoreHuman.appendChild(scoreH);
+    divScoreHuman.appendChild(scoreH2);
+    divScoreComputer.appendChild(scoreC);
+    divScoreComputer.appendChild(scoreC2);
 
-    playround(computerChoice, humanChoice, hInput, cInput);
+    divScore.appendChild(score);
+    divScore.appendChild(divScoreHuman);
+    divScore.appendChild(divScoreComputer);
 
-    function playround(computerChoice, humanChoice, humanInput, computerInput){
+    roundEnd.appendChild(divScore);
 
-        if (computerChoice==2 && humanChoice == 0){
-            console.log('YOU WIN!!!  ' +humanInput+' beats '+ computerInput+'\n\n');
-            humanScore = humanScore+1;
-            console.log('Computer Score: '+computerScore+'\nYour Score: '+humanScore+'\n\n\n');
-    
-        }else if (computerChoice==0 && humanChoice == 2){
-            console.log('YOU LOSE :(  ' +computerInput+' beats '+ humanInput+'\n\n');
-            computerScore = computerScore+1;
-            console.log('Computer Score: '+computerScore+'\nYour Score: '+humanScore+'\n\n\n');      
-    
-        }else if (computerChoice>humanChoice){
-            console.log('YOU LOSE :(  ' +computerInput+' beats '+ humanInput+'\n\n');
-            computerScore = computerScore+1;
-            console.log('Computer Score: '+computerScore+'\nYour Score: '+humanScore+'\n\n\n');
 
-        }else if (humanChoice>computerChoice){
-            console.log('YOU WIN!!!  ' +humanInput+' beats '+ computerInput+'\n\n');
-            humanScore = humanScore+1;
-            console.log('Computer Score: '+computerScore+'\nYour Score: '+humanScore+'\n\n\n');
-
-        }else{
-            console.log("IT'S A TIE!  " +humanInput+' and '+ computerInput+'\n\n');
-            console.log('Computer Score: '+computerScore+'\nYour Score: '+humanScore+'\n\n\n');
-        }
-        return humanScore, computerScore;
-    }
+return humanScore, computerScore;
 }
