@@ -1,0 +1,146 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+h1{
+    text-align: center;
+    width: fit-content;
+    margin: 30px auto;
+    font-size: 70px;
+    background-image: linear-gradient(rgb(255, 3, 150), rgb(7, 43, 143));
+    color: transparent;
+    background-clip: text;
+}
+
+
+.inputOptions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.164);
+    padding: 5px 30px;
+}
+
+.inputOptions p{
+    color: rgb(94, 6, 6);
+    font-size: 30px;
+}
+
+.options{
+    display: flex;
+    gap: 50px;
+    margin-bottom: 40px;
+}
+
+#rock,
+#paper,
+#scissors{
+    padding: 30px;
+    font-size: 30px;
+    background-color: rgb(177, 52, 73);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(116, 34, 47);
+}
+
+.roundEnd{
+    display: flex;
+    justify-content: space-around;
+}
+
+.divScore{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(110, 29, 43);
+    margin: 0;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 0;
+}
+.divScore .score{
+    border-bottom: 2px solid rgb(110, 29, 43);
+    text-align: center;
+    margin: 0;
+    padding: 5px 20px;
+    font-weight: bold;
+    background-color: rgb(110, 29, 43);
+    color: white;
+    font-size: 30px;
+}
+.divScoreHuman,
+.divScoreComputer{
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    gap: 0 ;
+    text-align: center;
+}
+.divScore p{
+    border: 2px solid rgb(110, 29, 43);
+    padding: 10px;
+    margin: 0;
+    font-size: 20px;
+    color: rgb(177, 52, 73);
+    font-weight: bold;
+    width: 100%;
+}
+
+.results div{
+    width: fit-content;
+    font-size: 70px;
+    font-weight: bold;
+    color: rgb(177, 52, 73);
+    margin: 10px 0 0 100px;
+}
+.results .vs{
+    width: fit-content;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(110, 29, 43);
+    margin: 10px 0 0 100px;
+}
+
+.results .divEnd{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 140px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    align-items: flex-start;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.952);
+    padding-top: 30px;
+}
+.end,
+.end2,
+.endScore{
+    width: fit-content;
+    font-size: 100px;
+    font-weight: bold;
+    color: rgb(202, 18, 48);
+    margin:0 auto;
+}
+.divEnd .end2{
+    font-size: 60px;
+    color: rgb(173, 22, 47);
+    font-weight: normal;
+}
+.divEnd .endScore{
+    font-size: 30px;
+    color: rgb(126, 13, 32);
+    font-weight: lighter;
+}
+.divEnd button{
+    padding: 10px;
+    font-size: 30px;
+    background-color: rgb(177, 52, 73);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(116, 34, 47);
+    margin: 30px auto;
+}
